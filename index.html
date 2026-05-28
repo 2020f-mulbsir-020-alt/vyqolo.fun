@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Vyqolo is a warm, expressive digital space for storytelling, identity, and creative social connection." />
+  <title>Vyqolo — Express Your Digital Self</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #fff8f9;
+      --surface: rgba(255, 255, 255, 0.88);
+      --surface-strong: #ffffff;
+      --text: #2c2024;
+      --muted: #6f5960;
+      --primary: #ff5a6a;
+      --primary-strong: #ff4158;
+      --coral: #ff7a85;
+      --blush: #ffe4e8;
+      --peach: #ffd6d9;
+      --line: rgba(255, 90, 106, 0.14);
+      --shadow: 0 18px 55px rgba(255, 90, 106, 0.14);
+      --shadow-soft: 0 10px 30px rgba(40, 20, 25, 0.08);
+      --radius-xl: 32px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --radius-sm: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(255, 122, 133, 0.18), transparent 28%),
+        radial-gradient(circle at 85% 15%, rgba(255, 214, 217, 0.7), transparent 24%),
+        linear-gradient(180deg, #fffdfd 0%, var(--bg) 100%);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: linear-gradient(rgba(255, 90, 106, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 90, 106, 0.03) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,0.5), transparent 80%);
+      pointer-events: none;
+      z-index: -2;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: auto -10% -20% auto;
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle, rgba(255, 90, 106, 0.18), transparent 68%);
+      filter: blur(10px);
+      pointer-events: none;
+      z-index: -2;
+      animation: pulse 10s ease-in-out infinite;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      position: relative;
+      width: min(1200px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 24px 0 64px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 20px;
+      margin-bottom: 22px;
+      border: 1px solid rgba(255, 90, 106, 0.12);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow-soft);
+      position: sticky;
+      top: 14px;
+      z-index: 20;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: "Poppins", sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+    }
+
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--primary), var(--coral));
+      color: white;
+      box-shadow: 0 12px 24px rgba(255, 90, 106, 0.3);
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .nav a {
+      padding: 8px 12px;
+      border-radius: 999px;
+      transition: background 180ms ease, color 180ms ease;
+    }
+
+    .nav a:hover {
+      background: rgba(255, 90, 106, 0.09);
+      color: var(--text);
+    }
+
+    .topbar-cta {
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--primary), var(--coral));
+      color: white;
+      font-weight: 700;
+      box-shadow: 0 14px 30px rgba(255, 90, 106, 0.24);
+      transition: transform 180ms ease, box-shadow 180ms ease;
+      white-space: nowrap;
+    }
+
+    .topbar-cta:hover,
+    .primary-btn:hover,
+    .secondary-btn:hover,
+    .card:hover,
+    .story-step:hover,
+    .post:hover,
+    .stat:hover,
+    .why-card:hover,
+    .contact-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 38px rgba(255, 90, 106, 0.16);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 28px;
+      padding: 40px;
+      border-radius: 40px;
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(255, 228, 232, 0.88)),
+        linear-gradient(135deg, rgba(255, 90, 106, 0.14), rgba(255, 122, 133, 0.02));
+      border: 1px solid rgba(255, 90, 106, 0.12);
+      box-shadow: var(--shadow);
+      isolation: isolate;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: -1;
+      filter: blur(1px);
+    }
+
+    .hero::before {
+      width: 260px;
+      height: 260px;
+      right: -80px;
+      top: -100px;
+      background: radial-gradient(circle, rgba(255, 90, 106, 0.22), transparent 68%);
+      animation: float 9s ease-in-out infinite;
+    }
+
+    .hero::after {
+      width: 180px;
+      height: 180px;
+      left: 5%;
+      bottom: -90px;
+      background: radial-gradient(circle, rgba(255, 214, 217, 0.9), transparent 68%);
+      animation: float 12s ease-in-out infinite reverse;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: fit-content;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: rgba(255, 90, 106, 0.1);
+      color: var(--primary-strong);
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.02em;
+    }
+
+    h1,
+    h2,
+    h3,
+    .brand {
+      font-family: "Poppins", sans-serif;
+    }
+
+    h1 {
+      margin: 18px 0 16px;
+      font-size: clamp(3rem, 6vw, 5.4rem);
+      line-height: 0.95;
+      letter-spacing: -0.06em;
+    }
+
+    .lead {
+      max-width: 58ch;
+      font-size: clamp(1.02rem, 1.6vw, 1.18rem);
+      line-height: 1.8;
+      color: var(--muted);
+      margin: 0 0 28px;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 0 20px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease, color 180ms ease;
+    }
+
+    .primary-btn {
+      background: linear-gradient(135deg, var(--primary), var(--coral));
+      color: white;
+      box-shadow: 0 16px 32px rgba(255, 90, 106, 0.26);
+    }
+
+    .secondary-btn {
+      background: rgba(255, 255, 255, 0.82);
+      border-color: rgba(255, 90, 106, 0.16);
+      color: var(--text);
+      backdrop-filter: blur(14px);
+    }
+
+    .hero-note {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .hero-note span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(255, 90, 106, 0.1);
+    }
+
+    .hero-aside {
+      display: grid;
+      gap: 16px;
+      align-content: center;
+    }
+
+    .floating-stack {
+      position: relative;
+      min-height: 420px;
+      border-radius: 32px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 228, 232, 0.62));
+      border: 1px solid rgba(255, 90, 106, 0.12);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      overflow: hidden;
+    }
+
+    .floating-stack::before,
+    .floating-stack::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.9), rgba(255, 90, 106, 0.1));
+      animation: float 11s ease-in-out infinite;
+    }
+
+    .floating-stack::before {
+      width: 170px;
+      height: 170px;
+      left: 18px;
+      top: 18px;
+    }
+
+    .floating-stack::after {
+      width: 140px;
+      height: 140px;
+      right: 24px;
+      bottom: 30px;
+      animation-duration: 14s;
+      animation-direction: reverse;
+    }
+
+    .floating-card {
+      position: absolute;
+      padding: 16px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(255, 90, 106, 0.12);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 18px 30px rgba(255, 90, 106, 0.08);
+      animation: drift 9s ease-in-out infinite;
+    }
+
+    .floating-card strong,
+    .stat strong {
+      display: block;
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+    }
+
+    .floating-card p,
+    .post p,
+    .contact-card p,
+    .why-card p,
+    .card p,
+    .story-step p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .card-grid,
+    .stats-grid,
+    .why-grid,
+    .community-grid,
+    .contact-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    section {
+      margin-top: 22px;
+    }
+
+    .section-shell {
+      padding: 34px;
+      border-radius: 34px;
+      background: rgba(255, 255, 255, 0.74);
+      border: 1px solid rgba(255, 90, 106, 0.09);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(16px);
+    }
+
+    .section-head {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      letter-spacing: -0.04em;
+    }
+
+    .section-head p {
+      margin: 0;
+      max-width: 68ch;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .card-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card,
+    .post,
+    .stat,
+    .why-card,
+    .contact-card {
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 228, 232, 0.58));
+      border: 1px solid rgba(255, 90, 106, 0.11);
+      box-shadow: var(--shadow-soft);
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .card {
+      padding: 22px;
+      min-height: 164px;
+    }
+
+    .card .icon,
+    .why-card .icon,
+    .story-step .badge {
+      display: inline-grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(255, 90, 106, 0.14), rgba(255, 122, 133, 0.22));
+      color: var(--primary-strong);
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .card h3,
+    .why-card h3,
+    .post h3 {
+      margin: 0 0 8px;
+      font-size: 1.2rem;
+      letter-spacing: -0.03em;
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 18px;
+    }
+
+    .story-flow {
+      position: relative;
+      padding: 22px 8px 22px 22px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .story-flow::before {
+      content: "";
+      position: absolute;
+      left: 42px;
+      top: 48px;
+      bottom: 48px;
+      width: 2px;
+      background: linear-gradient(180deg, rgba(255, 90, 106, 0.18), rgba(255, 90, 106, 0.05));
+    }
+
+    .story-step {
+      position: relative;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 16px;
+      align-items: start;
+      padding: 18px 18px 18px 0;
+      border-radius: 24px;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .story-step .badge {
+      margin: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .story-step strong {
+      display: block;
+      font-size: 1.08rem;
+      margin-bottom: 6px;
+    }
+
+    .story-visual {
+      padding: 22px;
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .story-visual .mini-panel {
+      min-height: 180px;
+      padding: 18px;
+      border-radius: 26px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 228, 232, 0.72));
+      border: 1px solid rgba(255, 90, 106, 0.1);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+    }
+
+    .community-grid {
+      grid-template-columns: 1.1fr 0.9fr;
+    }
+
+    .post-feed {
+      display: grid;
+      gap: 16px;
+    }
+
+    .post {
+      padding: 20px;
+    }
+
+    .post-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .avatar {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--primary), var(--coral));
+      color: white;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      box-shadow: 0 12px 20px rgba(255, 90, 106, 0.22);
+    }
+
+    .post-meta strong,
+    .stat strong {
+      margin: 0;
+    }
+
+    .post-meta span,
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-top: 3px;
+    }
+
+    .post-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .tag {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 90, 106, 0.08);
+      color: var(--primary-strong);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .side-rail {
+      display: grid;
+      gap: 16px;
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .stat {
+      text-align: center;
+      padding: 24px 18px;
+    }
+
+    .stat strong {
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      color: var(--primary-strong);
+    }
+
+    .why-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .why-card,
+    .contact-card {
+      padding: 22px;
+    }
+
+    .cta-panel {
+      position: relative;
+      overflow: hidden;
+      padding: 40px;
+      border-radius: 38px;
+      background: linear-gradient(145deg, #ff6b7b, #ff8f98 54%, #ffcfd4);
+      color: white;
+      box-shadow: 0 24px 58px rgba(255, 90, 106, 0.26);
+    }
+
+    .cta-panel::before,
+    .cta-panel::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.24);
+      filter: blur(1px);
+      animation: float 10s ease-in-out infinite;
+    }
+
+    .cta-panel::before {
+      width: 210px;
+      height: 210px;
+      right: -50px;
+      top: -40px;
+    }
+
+    .cta-panel::after {
+      width: 160px;
+      height: 160px;
+      left: -30px;
+      bottom: -60px;
+      animation-direction: reverse;
+    }
+
+    .cta-panel h2,
+    .cta-panel p {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-panel p {
+      max-width: 60ch;
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 22px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-panel .primary-btn {
+      background: white;
+      color: var(--primary-strong);
+    }
+
+    .cta-panel .secondary-btn {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: rgba(255, 255, 255, 0.24);
+      color: white;
+    }
+
+    .contact-grid {
+      grid-template-columns: 0.9fr 1.1fr;
+      align-items: start;
+    }
+
+    .contact-form {
+      padding: 24px;
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 228, 232, 0.72));
+      border: 1px solid rgba(255, 90, 106, 0.11);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .field-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    label {
+      display: grid;
+      gap: 8px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      border: 1px solid rgba(255, 90, 106, 0.16);
+      border-radius: 18px;
+      padding: 15px 16px;
+      font: inherit;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--text);
+      outline: none;
+      transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: rgba(255, 90, 106, 0.45);
+      box-shadow: 0 0 0 4px rgba(255, 90, 106, 0.12);
+    }
+
+    textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    .form-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .contact-card {
+      min-height: 100%;
+    }
+
+    footer {
+      margin-top: 22px;
+      padding: 24px 28px;
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(248, 250, 252, 0.96), rgba(255, 255, 255, 0.92));
+      border: 1px solid rgba(255, 90, 106, 0.08);
+      color: var(--muted);
+    }
+
+    .footer-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .footer-links a {
+      padding: 6px 0;
+      border-bottom: 1px solid transparent;
+      transition: border-color 180ms ease, color 180ms ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+      border-color: rgba(255, 90, 106, 0.32);
+    }
+
+    .section-anchor {
+      scroll-margin-top: 110px;
+    }
+
+    .soft-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 90, 106, 0.15), transparent);
+      margin: 24px 0;
+    }
+
+    .floating-dot {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255, 90, 106, 0.34);
+      box-shadow: 0 0 0 8px rgba(255, 90, 106, 0.08);
+      animation: float 7s ease-in-out infinite;
+    }
+
+    .dot-1 { top: 16%; left: 12%; }
+    .dot-2 { top: 30%; right: 10%; animation-duration: 9s; }
+    .dot-3 { bottom: 18%; left: 18%; animation-duration: 11s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) translateX(0px); }
+      50% { transform: translateY(-12px) translateX(6px); }
+    }
+
+    @keyframes drift {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.08); opacity: 1; }
+    }
+
+    .reveal {
+      animation: rise 0.8s ease both;
+    }
+
+    .reveal.delay-1 { animation-delay: 0.08s; }
+    .reveal.delay-2 { animation-delay: 0.16s; }
+    .reveal.delay-3 { animation-delay: 0.24s; }
+    .reveal.delay-4 { animation-delay: 0.32s; }
+
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 1080px) {
+      .hero,
+      .story-grid,
+      .community-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card-grid,
+      .stats-grid,
+      .why-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .hero-aside {
+        order: -1;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page {
+        width: min(100% - 20px, 1200px);
+        padding-top: 12px;
+      }
+
+      .topbar {
+        border-radius: 26px;
+        padding: 14px 16px;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .hero,
+      .section-shell,
+      .cta-panel,
+      .contact-form,
+      footer {
+        border-radius: 28px;
+      }
+
+      .hero,
+      .section-shell,
+      .cta-panel {
+        padding: 24px;
+      }
+
+      .floating-stack {
+        min-height: 330px;
+      }
+
+      .story-flow::before {
+        left: 34px;
+      }
+
+      .story-step {
+        padding-right: 0;
+      }
+
+      .story-visual {
+        grid-template-columns: 1fr;
+      }
+
+      .field-row,
+      .card-grid,
+      .stats-grid,
+      .why-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-row,
+      .form-actions {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      h1 {
+        font-size: clamp(2.6rem, 13vw, 4rem);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar reveal">
+      <a class="brand" href="#top" aria-label="Vyqolo home">
+        <span class="brand-mark">V</span>
+        <span>Vyqolo</span>
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <a href="#features">Features</a>
+        <a href="#story">Story Flow</a>
+        <a href="#community">Community</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <a class="topbar-cta" href="#cta">Start Creating</a>
+    </header>
+
+    <main id="top">
+      <section class="hero reveal delay-1 section-anchor">
+        <div>
+          <div class="eyebrow">Warm emotional digital expression</div>
+          <h1>A Softer Way to Express Yourself Online</h1>
+          <p class="lead">
+            Vyqolo is a creative social space where identity, emotion, and storytelling flow together in one warm digital canvas. Build expressive posts, shape your mood, and connect through a platform that feels human, playful, and alive.
+          </p>
+          <div class="button-row">
+            <a class="primary-btn" href="#contact">Start Creating</a>
+            <a class="secondary-btn" href="#community">Explore Stories</a>
+          </div>
+          <div class="hero-note" aria-label="Platform highlights">
+            <span>Soft personal storytelling</span>
+            <span>Identity-driven expression</span>
+            <span>Creative social interaction</span>
+          </div>
+        </div>
+
+        <div class="hero-aside">
+          <div class="floating-stack" aria-hidden="true">
+            <span class="floating-dot dot-1"></span>
+            <span class="floating-dot dot-2"></span>
+            <span class="floating-dot dot-3"></span>
+            <div class="floating-card" style="top: 36px; right: 26px; max-width: 210px;">
+              <strong>Today’s Mood</strong>
+              <p>Soft coral, gentle sparks, and a story worth sharing.</p>
+            </div>
+            <div class="floating-card" style="left: 22px; bottom: 44px; max-width: 240px; animation-delay: 0.8s;">
+              <strong>Expressive Post</strong>
+              <p>“I’m building a brighter version of my digital self.”</p>
+            </div>
+            <div class="floating-card" style="left: 54px; top: 150px; max-width: 200px; animation-delay: 1.4s;">
+              <strong>Connection Pulse</strong>
+              <p>Friends are reacting with warm, supportive energy.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="features" class="section-shell section-anchor reveal delay-2">
+        <div class="section-head">
+          <h2>Expression Features</h2>
+          <p>Each feature is shaped to feel light, friendly, and emotionally immediate, so users can create with ease and share with warmth.</p>
+        </div>
+        <div class="card-grid">
+          <article class="card">
+            <div class="icon">01</div>
+            <h3>Digital Story Creation</h3>
+            <p>Compose visual stories that feel personal and fluid, with space for memories, voice, and identity.</p>
+          </article>
+          <article class="card">
+            <div class="icon">02</div>
+            <h3>Emotional Sharing Tools</h3>
+            <p>Share moments through mood-aware post styles that make expression feel natural instead of technical.</p>
+          </article>
+          <article class="card">
+            <div class="icon">03</div>
+            <h3>Identity Customization</h3>
+            <p>Shape your profile into a warm personal canvas with expressive color, tone, and visual cues.</p>
+          </article>
+          <article class="card">
+            <div class="icon">04</div>
+            <h3>Creative Social Posts</h3>
+            <p>Create soft, visual-first posts that feel like moments, not just updates.</p>
+          </article>
+          <article class="card">
+            <div class="icon">05</div>
+            <h3>Mood-Based Expression</h3>
+            <p>Let feeling guide the interface with prompts and layouts that support the emotion of the day.</p>
+          </article>
+          <article class="card">
+            <div class="icon">06</div>
+            <h3>Community Interaction</h3>
+            <p>Encourage gentle replies, reactions, and shared energy in a space designed for support.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="story" class="section-shell section-anchor reveal delay-3">
+        <div class="section-head">
+          <h2>Story Flow</h2>
+          <p>A guided emotional journey that moves from inner feeling to shared inspiration in five soft steps.</p>
+        </div>
+        <div class="story-grid">
+          <div class="story-flow card">
+            <div class="story-step">
+              <span class="badge">1</span>
+              <div>
+                <strong>Feel</strong>
+                <p>Begin with emotion, mood, or a small thought that wants to be seen.</p>
+              </div>
+            </div>
+            <div class="story-step">
+              <span class="badge">2</span>
+              <div>
+                <strong>Create</strong>
+                <p>Shape that feeling into a post, a memory, or a visual story card.</p>
+              </div>
+            </div>
+            <div class="story-step">
+              <span class="badge">3</span>
+              <div>
+                <strong>Share</strong>
+                <p>Publish your expression with soft styling that keeps the moment gentle.</p>
+              </div>
+            </div>
+            <div class="story-step">
+              <span class="badge">4</span>
+              <div>
+                <strong>Connect</strong>
+                <p>Receive warm reactions and meaningful interactions from the community.</p>
+              </div>
+            </div>
+            <div class="story-step">
+              <span class="badge">5</span>
+              <div>
+                <strong>Inspire</strong>
+                <p>Let your story encourage someone else to express their own digital self.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="story-visual card">
+            <div class="mini-panel">
+              <strong style="display:block;font-family:Poppins,sans-serif;font-size:1.1rem;margin-bottom:10px;">Emotion Field</strong>
+              <p>A warm palette, soft spacing, and rounded surfaces keep the mood inviting.</p>
+            </div>
+            <div class="mini-panel">
+              <strong style="display:block;font-family:Poppins,sans-serif;font-size:1.1rem;margin-bottom:10px;">Identity Layer</strong>
+              <p>Profiles and posts adapt to the creator’s tone, making each presence feel personal.</p>
+            </div>
+            <div class="mini-panel">
+              <strong style="display:block;font-family:Poppins,sans-serif;font-size:1.1rem;margin-bottom:10px;">Flow Rhythm</strong>
+              <p>Gentle motion creates a feeling of breathing space rather than flashy distraction.</p>
+            </div>
+            <div class="mini-panel">
+              <strong style="display:block;font-family:Poppins,sans-serif;font-size:1.1rem;margin-bottom:10px;">Shared Light</strong>
+              <p>Soft glow details emphasize connection, encouraging users to feel seen and welcome.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="community" class="section-shell section-anchor reveal delay-4">
+        <div class="section-head">
+          <h2>Community Expression</h2>
+          <p>Feed-style cards keep the experience social and human, with emotional moments presented as warm visual snapshots.</p>
+        </div>
+        <div class="community-grid">
+          <div class="post-feed">
+            <article class="post">
+              <div class="post-head">
+                <div class="avatar">AR</div>
+                <div class="post-meta">
+                  <strong>Ada Rivers</strong>
+                  <span>Shared a morning thought • 8 min ago</span>
+                </div>
+              </div>
+              <h3>“Today feels like a soft restart.”</h3>
+              <p>I wanted a place to post a feeling, not just a status. Vyqolo makes that feel warm, simple, and beautiful.</p>
+              <div class="post-tags">
+                <span class="tag">#freshstart</span>
+                <span class="tag">#softmood</span>
+                <span class="tag">#expressive</span>
+              </div>
+            </article>
+            <article class="post">
+              <div class="post-head">
+                <div class="avatar">LM</div>
+                <div class="post-meta">
+                  <strong>Luna Moss</strong>
+                  <span>Creative update • 22 min ago</span>
+                </div>
+              </div>
+              <h3>“A small story can still carry a lot of heart.”</h3>
+              <p>That’s the feeling behind the latest post sequence: gentle, personal, and designed to make sharing feel easy.</p>
+              <div class="post-tags">
+                <span class="tag">#storymode</span>
+                <span class="tag">#heartspace</span>
+              </div>
+            </article>
+          </div>
+
+          <div class="side-rail">
+            <div class="contact-card">
+              <h3>Live Interaction Cues</h3>
+              <p>Warm reactions, soft replies, and subtle highlight states help the community feel emotionally present without becoming noisy.</p>
+              <div class="soft-divider"></div>
+              <p>Designed for creators who want their digital presence to feel expressive, safe, and alive.</p>
+            </div>
+            <div class="contact-card">
+              <h3>Shared Moments</h3>
+              <p>Stories, moods, and creative posts can coexist in a calm space that feels more like a home for identity than a feed for performance.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-shell reveal delay-4">
+        <div class="section-head">
+          <h2>Engagement Stats</h2>
+          <p>Milestones are presented softly to keep the experience warm and emotional rather than overly corporate.</p>
+        </div>
+        <div class="stats-grid">
+          <div class="stat">
+            <strong>5M+</strong>
+            <span>Stories Shared</span>
+          </div>
+          <div class="stat">
+            <strong>2M+</strong>
+            <span>Active Creators</span>
+          </div>
+          <div class="stat">
+            <strong>100M+</strong>
+            <span>Emotions Expressed</span>
+          </div>
+          <div class="stat">
+            <strong>50+</strong>
+            <span>Countries Connected</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-shell reveal delay-4">
+        <div class="section-head">
+          <h2>Why Vyqolo</h2>
+          <p>Everything centers on emotional expression, creative freedom, and a friendly social environment that encourages personal storytelling.</p>
+        </div>
+        <div class="why-grid">
+          <article class="why-card">
+            <div class="icon">✦</div>
+            <h3>Emotion First</h3>
+            <p>The interface supports feeling before structure, keeping expression immediate and natural.</p>
+          </article>
+          <article class="why-card">
+            <div class="icon">✦</div>
+            <h3>Creative Freedom</h3>
+            <p>Users can present themselves in a way that feels open, playful, and deeply personal.</p>
+          </article>
+          <article class="why-card">
+            <div class="icon">✦</div>
+            <h3>Friendly Social Space</h3>
+            <p>The community model is designed for warmth, support, and gentle connection.</p>
+          </article>
+          <article class="why-card">
+            <div class="icon">✦</div>
+            <h3>Identity Storytelling</h3>
+            <p>Every profile becomes a living story that evolves with mood, memory, and inspiration.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="cta" class="cta-panel section-anchor reveal delay-4">
+        <h2>Start Expressing Your Story</h2>
+        <p>
+          Join Vyqolo to create, connect, and shape a digital presence that feels warm, expressive, and beautifully human.
+        </p>
+        <div class="cta-actions">
+          <a class="primary-btn" href="#contact">Join Vyqolo</a>
+          <a class="secondary-btn" href="#features">Create Now</a>
+        </div>
+      </section>
+
+      <section id="contact" class="section-shell section-anchor reveal delay-4">
+        <div class="section-head">
+          <h2>Contact</h2>
+          <p>Keep the form soft and approachable, so reaching out feels like part of the brand experience.</p>
+        </div>
+        <div class="contact-grid">
+          <div class="contact-card">
+            <h3>Talk to the Vyqolo team</h3>
+            <p>Tell us what you want to express, what kind of mood you want the platform to carry, or what creative story you want to explore.</p>
+            <div class="soft-divider"></div>
+            <p>We’re building a space for identity, warmth, and emotional digital storytelling.</p>
+          </div>
+          <form class="contact-form">
+            <div class="field-grid">
+              <div class="field-row">
+                <label>
+                  Name
+                  <input type="text" name="name" placeholder="Your name" />
+                </label>
+                <label>
+                  Mood / Interest
+                  <input type="text" name="mood" placeholder="Soft, playful, reflective..." />
+                </label>
+              </div>
+              <label>
+                Message
+                <textarea name="message" placeholder="Share your story, idea, or question..."></textarea>
+              </label>
+              <div class="form-actions">
+                <a class="primary-btn" href="mailto:hello@vyqolo.fun">Send Message</a>
+                <span style="color:var(--muted);font-size:0.95rem;">hello@vyqolo.fun</span>
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-row">
+        <div>
+          <strong style="display:block;font-family:Poppins,sans-serif;color:var(--text);font-size:1.05rem;margin-bottom:6px;">Vyqolo</strong>
+          <span>A warm emotional digital expression platform.</span>
+        </div>
+        <div class="footer-links" aria-label="Footer links">
+          <a href="#features">Features</a>
+          <a href="#story">Story Flow</a>
+          <a href="#community">Community</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
